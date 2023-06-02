@@ -147,9 +147,44 @@ SELECT *
 может показать всех заказчиков, у которых
 рейтинг больше 100 и они находятся не в Риме.
 */
-SELECT cname, COUNT(1)
-	FROM customers 
-    WHERE city <> 'Rom'
-    GROUP BY cname
-    HAVING rating > 100;
 
+SELECT *
+	FROM customers
+	WHERE (rating > 100) AND (city != "Rome");
+    
+-- 2 этап ДЗ_3
+USE mydb;
+
+/*
+1. Отсортируйте поле “зарплата” в порядке убывания и возрастания
+*/
+SELECT *
+	FROM staff
+	ORDER BY salary;
+    
+SELECT *
+	FROM staff
+	ORDER BY salary DESC;
+/*
+2. ** Отсортируйте по возрастанию поле “Зарплата” и выведите 5 строк с
+наибольшей заработной платой (возможен подзапрос)
+*/
+SELECT (SELECT salary  
+	FROM staff 
+	ORDER BY salary DESC 
+	LIMIT 5) AS salarym 
+    FROM staff
+    ORDER BY salarym;
+
+
+
+/*
+3. Выполните группировку всех сотрудников по специальности ,
+суммарная зарплата которых превышает 100000
+*/
+
+SELECT post, COUNT(1) 
+	FROM staff
+	WHERE salary >= 100000
+	GROUP BY post
+	;
